@@ -1,18 +1,19 @@
 from typing import List, Generator, Tuple, Callable
 
-RuleRow = Tuple[Tuple[int, ...], str, str]
+RuleRow = Tuple[Tuple[int, int], str, str]
 
-FILE_NAME: str = "day-02-input.txt"
+INPUT_FILE_NAME: str = "day-02-input.txt"
 
 
 def get_valid_input_list(
-    file_name: str, condition: Callable[[RuleRow], bool]
+    condition: Callable[[RuleRow], bool]
 ) -> Generator[RuleRow, None, None]:
-    with open(file_name) as input_file:
+    with open(INPUT_FILE_NAME) as input_file:
         for line in input_file:
-            split: List[str] = line.replace("\n", "").split()
+            split: List[str] = line.strip().split()
+            char_range: Tuple[int, ...] = tuple(int(i) for i in split[0].split("-"))
             row: RuleRow = (
-                tuple(int(i) for i in split[0].split("-")),
+                (char_range[0], char_range[-1]),
                 split[1][0],
                 split[2],
             )
@@ -20,10 +21,8 @@ def get_valid_input_list(
                 yield row
 
 
-def count_valid_with_condition(
-    file_name: str, condition: Callable[[RuleRow], bool]
-) -> int:
-    return len(list(get_valid_input_list(file_name, condition)))
+def count_valid_with_condition(condition: Callable[[RuleRow], bool]) -> int:
+    return len(list(get_valid_input_list(condition)))
 
 
 def condition_01(entry: RuleRow) -> bool:
@@ -38,8 +37,8 @@ def condition_02(entry: RuleRow) -> bool:
 
 if __name__ == "__main__":
     print(
-        "result 01: ", count_valid_with_condition(FILE_NAME, condition_01),
+        "result 01: ", count_valid_with_condition(condition_01),
     )
     print(
-        "result 02: ", count_valid_with_condition(FILE_NAME, condition_02),
+        "result 02: ", count_valid_with_condition(condition_02),
     )

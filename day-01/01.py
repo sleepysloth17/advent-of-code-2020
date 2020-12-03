@@ -6,9 +6,11 @@ INPUT_FILE_NAME = "day-01-input.txt"
 REQUIRED_SUM = 2020
 
 
-def get_input_list(file_name: str) -> List[int]:
-    with open(file_name) as input_file:
-        return [int(l) for l in input_file.readlines()]
+def get_input_list() -> List[int]:
+    with open(INPUT_FILE_NAME) as input_file:
+        return_list: List[int] = [int(l) for l in input_file.readlines()]
+        return_list.sort()
+        return return_list
 
 
 def search_sum_of_n(input: List[int], n: int) -> Optional[int]:
@@ -20,7 +22,7 @@ def search_sum_of_n(input: List[int], n: int) -> Optional[int]:
 
 
 def main() -> None:
-    input_list: List[int] = get_input_list(INPUT_FILE_NAME)
+    input_list: List[int] = get_input_list()
     result_01: Optional[int] = search_sum_of_n(input_list, 2)
     result_02: Optional[int] = search_sum_of_n(input_list, 3)
 
