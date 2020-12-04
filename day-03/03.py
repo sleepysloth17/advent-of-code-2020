@@ -12,25 +12,21 @@ def get_input_list() -> Generator[str, None, None]:
 
 
 # 1 for tree, 0 for empty
-def get_encountered(step: Tuple[int, int]) -> List[int]:
+def get_encountered(step: Tuple[int, int]) -> Generator[int, None, None]:
     input_list: List[str] = [i for i in get_input_list()]
     x: int
     y: int
     x, y = [0, 0]
 
-    return_list: List[int] = []
-
     while y < len(input_list) - 1:
         y += step[1]
         line: str = input_list[y]
         x = (x + step[0]) % len(line)
-        return_list.append(1 if line[x] == "#" else 0)
-
-    return return_list
+        yield 1 if line[x] == "#" else 0
 
 
 def multiply_trees(step_list: List[Tuple[int, int]]) -> int:
-    return prod(sum(get_encountered(i)) for i in step_list)
+    return prod(sum(e for e in get_encountered(i)) for i in step_list)
 
 
 if __name__ == "__main__":
