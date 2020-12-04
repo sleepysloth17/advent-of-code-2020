@@ -1,4 +1,4 @@
-from typing import Generator, List, Set, Dict, Callable, KeysView, Pattern
+from typing import Generator, List, Set, Dict, Callable, Pattern
 from re import compile
 
 INPUT_FILE_NAME: str = "day-04-input.txt"

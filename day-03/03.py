@@ -1,5 +1,4 @@
 from typing import List, Generator, Tuple
-from itertools import islice
 from math import prod
 
 INPUT_FILE_NAME = "day-03-input.txt"
